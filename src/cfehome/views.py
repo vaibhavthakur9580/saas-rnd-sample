@@ -18,13 +18,14 @@ def home_page_view(request, *args, **kwargs):
     # just a simple variable 
     my_title = "My Page"
     # just a dictionary containing the key value pairs which we can use at different places 
+    html_template = "home.html"
     my_context = {
         "page_title" : my_title,
         "page_visits_count" : page_qs.count(),
         "percent_count" : (page_qs.count() / qs.count()) * 100,
         "total_visit_count" : qs.count()
     }
-    html_template = "home.html"
+    
     path = request.path
     PageVisits.objects.create(path=request.path)
 
