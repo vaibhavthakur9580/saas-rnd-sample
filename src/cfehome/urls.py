@@ -17,8 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from auth import views as auth_views
-
-
 from .views import home_view, about_view
 
 # the way url path work is that they are web paths to the functions present in the views folder. we can tie up the url paths to functions present in the views folder anf then write logic for the page in the views function 

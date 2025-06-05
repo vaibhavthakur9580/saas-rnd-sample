@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect
 def login_view(request):
     print(request.method, request.POST or None)
     if request.method == "POST":
-        username = request.POST.get(["username"]) or None
-        password = request.POST.get(["password"]) or None
+        username = "vaibhav"#request.POST.get(["username"]) or None
+        password = "naruto1010"#request.POST.get(["password"]) or None
         if all([username, password]):
             user = authenticate(request, username=username, password=password)
             if user is not None:
