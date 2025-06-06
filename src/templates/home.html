@@ -5,15 +5,18 @@
 {% endblock head_title %}
 
 
-{% block content%}
-<h1>{{ page_title }}</h1>
-<p>Hello again!</p>
-{% include 'snippets/welcome-user-msg.html' %}
-{% comment %} the below is a variable that we are rendering on the page that shows the count of the number of times the page has been visited {% endcomment %}
-<p>Page Visits : {{ page_visits_count }}</p>
-<p>Total page visits {{total_visit_count}}</p>
-<p>percent count {{percent_count}}</p>
-{% endblock content%}
+{% block content %}
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ page_title }}</h1>
+    <p class="text-lg text-gray-600 mb-2">Hello again!</p>
+    
+    {% include 'snippets/welcome-user-msg.html' %}
+    
+    <p class="text-md text-gray-700">Page Visits: <span class="font-semibold">{{ page_visits_count }}</span></p>
+    <p class="text-md text-gray-700">Total page visits: <span class="font-semibold">{{ total_visit_count }}</span></p>
+    <p class="text-md text-gray-700">Percent count: <span class="font-semibold">{{ percent_count }}</span></p>
+</div>
+{% endblock content %}
 
 
 
