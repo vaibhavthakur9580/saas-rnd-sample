@@ -51,6 +51,15 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # DEBUG = str(os.environ.get("DJANGO_DEBUG")).lower() == "true"
 DEBUG = config("DJANGO_DEBUG", cast=bool)
 
+# ALLOWED_HOSTS = [
+#     ".railway.app"
+# ]
+# if DEBUG:
+#     ALLOWED_HOSTS += [
+#         "127.0.0.1",
+#         "localhost"
+#     ]
+
 ALLOWED_HOSTS = [
     ".railway.app"
 ]
@@ -60,6 +69,20 @@ if DEBUG:
         "localhost"
     ]
 
+# Add CSRF trusted origins for Railway
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.railway.app",
+]
+
+# Production security settings
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 # Application definition
 
