@@ -94,12 +94,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "commando",
+    "profiles",
+    "subscriptions",
     "visits",
     # third pparty apps
     "allauth_ui",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
     'widget_tweaks',
     'slippers',
     
@@ -199,9 +202,22 @@ AUTHENTICATION_BACKENDS = [
     # ...
     ]
 
+SITE_ID = 1
+
 SOCIALACCOUNT_PROVIDERS = {
-   
+    'github': {
+        'SCOPE': [
+            'user:email',
+        ],
+    }
 }
+
+
+# SOCIALACCOUNT_PROVIDERS = {
+#    "github": {
+#        "VERIFIED_EMAIL": True
+#    }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
