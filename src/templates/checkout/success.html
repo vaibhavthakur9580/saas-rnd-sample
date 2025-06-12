@@ -1,20 +1,423 @@
 {% extends 'base.html' %}
 
-
 {% block head_title %}{{ page_title }} - {{ block.super }}{% endblock head_title %}
 
-
 {% block content %}
-<h1 class="text-lg font-medium">Success welcome!</h1>
 
-<div class="mb-12">
-{{ subscription }}
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+    <!-- Success Container -->
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- Success Header -->
+        <div class="text-center mb-12">
+            <!-- Success Animation -->
+            <div class="relative mb-8">
+                <div class="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg success-pulse">
+                    <svg class="w-12 h-12 text-white success-check" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <!-- Floating particles -->
+                <div class="absolute inset-0 pointer-events-none">
+                    <div class="particle particle-1"></div>
+                    <div class="particle particle-2"></div>
+                    <div class="particle particle-3"></div>
+                    <div class="particle particle-4"></div>
+                </div>
+            </div>
+
+```
+        <!-- Success Message -->
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 success-fade-in">
+            🎉 Welcome Aboard!
+        </h1>
+        <p class="text-xl text-gray-600 mb-2 success-fade-in-delay">
+            Your account has been successfully created
+        </p>
+        <p class="text-gray-500 success-fade-in-delay-2">
+            Let's get you started on your journey
+        </p>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <!-- Subscription Section -->
+        <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20 success-slide-up">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Your Subscription</h2>
+                    <p class="text-gray-600">Plan details and benefits</p>
+                </div>
+            </div>
+            
+            <div class="subscription-content">
+                {{ subscription }}
+            </div>
+            
+            <!-- Plan Benefits -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">What's Included:</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Full access to all features
+                    </div>
+                    <div class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        24/7 Customer support
+                    </div>
+                    <div class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        Regular updates and improvements
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20 success-slide-up-delay">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Payment Details</h2>
+                    <p class="text-gray-600">Secure and encrypted</p>
+                </div>
+            </div>
+            
+            <div class="checkout-content">
+                {{ checkout }}
+            </div>
+            
+            <!-- Security Badge -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="flex items-center justify-center text-sm text-gray-600">
+                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    Secured with 256-bit SSL encryption
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Steps Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl success-slide-up-delay-2">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold mb-2">What's Next?</h2>
+            <p class="text-blue-100">Here's how to get the most out of your new account</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                    <span class="text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Complete Your Profile</h3>
+                <p class="text-blue-100 text-sm">Add your personal information and preferences</p>
+                <a href="#" class="inline-block mt-3 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+                    Set Up Profile
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                    <span class="text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Explore Features</h3>
+                <p class="text-blue-100 text-sm">Take a tour of all available tools and options</p>
+                <a href="#" class="inline-block mt-3 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+                    Start Tour
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
+                    <span class="text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Get Support</h3>
+                <p class="text-blue-100 text-sm">Need help? Our team is here for you 24/7</p>
+                <a href="#" class="inline-block mt-3 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <a href="#" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg text-center">
+            <span class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                Go to Dashboard
+            </span>
+        </a>
+        
+        <a href="#" class="bg-white hover:bg-gray-50 text-gray-700 font-semibold py-4 px-8 rounded-xl border border-gray-200 transition-all duration-300 transform hover:scale-105 shadow-lg text-center">
+            <span class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                View Documentation
+            </span>
+        </a>
+    </div>
+</div>
+```
+
 </div>
 
+<!-- Enhanced Styling -->
 
-<div>
-    {{ checkout }}
-</div>
+<style>
+    /* Success animations */
+    .success-pulse {
+        animation: successPulse 2s infinite;
+    }
+    
+    @keyframes successPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .success-check {
+        animation: checkAppear 0.6s ease-out 0.3s both;
+    }
+    
+    @keyframes checkAppear {
+        0% { 
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            opacity: 0;
+        }
+        100% { 
+            stroke-dasharray: 100;
+            stroke-dashoffset: 0;
+            opacity: 1;
+        }
+    }
+    
+    /* Fade in animations */
+    .success-fade-in {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .success-fade-in-delay {
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    
+    .success-fade-in-delay-2 {
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+    
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Slide up animations */
+    .success-slide-up {
+        animation: slideUp 0.8s ease-out 0.3s both;
+    }
+    
+    .success-slide-up-delay {
+        animation: slideUp 0.8s ease-out 0.5s both;
+    }
+    
+    .success-slide-up-delay-2 {
+        animation: slideUp 0.8s ease-out 0.7s both;
+    }
+    
+    @keyframes slideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Floating particles */
+    .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: linear-gradient(45deg, #10b981, #34d399);
+        border-radius: 50%;
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    .particle-1 {
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+    
+    .particle-2 {
+        top: 30%;
+        right: 20%;
+        animation-delay: 0.5s;
+    }
+    
+    .particle-3 {
+        bottom: 30%;
+        left: 30%;
+        animation-delay: 1s;
+    }
+    
+    .particle-4 {
+        bottom: 20%;
+        right: 30%;
+        animation-delay: 1.5s;
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 1;
+        }
+        33% {
+            transform: translateY(-20px) rotate(120deg);
+            opacity: 0.8;
+        }
+        66% {
+            transform: translateY(10px) rotate(240deg);
+            opacity: 0.6;
+        }
+    }
+    
+    /* Enhanced content styling */
+    .subscription-content, .checkout-content {
+        min-height: 100px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.5);
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Hover effects */
+    .bg-white\/70:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .success-pulse {
+            width: 80px;
+            height: 80px;
+        }
+        
+        .success-check {
+            width: 40px;
+            height: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+    
+    /* Custom scrollbar for webkit browsers */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: rgba(16, 185, 129, 0.5);
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(16, 185, 129, 0.7);
+    }
+</style>
 
+<!-- Confetti Effect Script -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create confetti effect
+        setTimeout(createConfetti, 500);
+        
+        function createConfetti() {
+            const colors = ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0'];
+            const confettiCount = 50;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                createConfettiPiece(colors[Math.floor(Math.random() * colors.length)]);
+            }
+        }
+        
+        function createConfettiPiece(color) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = confetti.style.width;
+            confetti.style.backgroundColor = color;
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = -10 + 'px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '9999';
+            
+            document.body.appendChild(confetti);
+            
+            const fallDuration = Math.random() * 2000 + 2000;
+            const horizontalMovement = (Math.random() - 0.5) * 200;
+            
+            confetti.animate([
+                { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate(${horizontalMovement}px, ${window.innerHeight + 100}px) rotate(720deg)`, opacity: 0 }
+            ], {
+                duration: fallDuration,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }).onfinish = () => confetti.remove();
+        }
+        
+        // Add smooth scroll behavior for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock content %}

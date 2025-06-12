@@ -1,22 +1,56 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 
 {% block head_title %}Your Subscription - {{ block.super }}{% endblock head_title %}
 
-
 {% block content %}
 
-{% if subscription.is_active_status  %}
-<h1 class="text-lg font-medium">Are you sure you want to cancel {{ subscription.plan_name }}?</h1>
+<section class="bg-gradient-to-br from-red-50 to-orange-100 dark:from-gray-800 dark:to-gray-950 py-16 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 space-y-6 text-center border border-gray-100 dark:border-gray-700">
+        {% if subscription.is_active_status %}
+            <div class="mb-6">
+                <div class="w-20 h-20 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                    <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    Confirm Cancellation
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    Are you sure you want to cancel your **{{ subscription.plan_name }}** subscription?
+                </p>
+            </div>
 
+            <form action="" method="POST" class="space-y-4">
+                {% csrf_token %}
+                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800">
+                    Yes, Cancel Subscription
+                </button>
+            </form>
+            <a href="{{ subscription.get_absolute_url }}" class="inline-block text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 font-medium mt-4 transition-colors duration-200">
+                No, Go Back to My Subscription
+            </a>
 
-<form action="" method="POST">{% csrf_token %}
-    <button type="submit" >Yes, cancel</button>
-</form>
-<a href="{{ subscription.get_absolute_url}}">No, go back</a>
+        {% else %}
+            <div class="mb-6">
+                <div class="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                    <svg class="w-10 h-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    Subscription Inactive
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    Your membership is no longer active.
+                </p>
+            </div>
+            <a href="{% url 'pricing' %}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800">
+                View Pricing Plans
+            </a>
+        {% endif %}
+    </div>
+</section>
 
-{% else %}
-
-<h1 class="text-lg font-medium">Your membership is not longer active</h1>
-{% endif %}
 {% endblock content %}
