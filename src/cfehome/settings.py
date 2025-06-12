@@ -59,7 +59,7 @@ DEBUG = config("DJANGO_DEBUG", cast=bool)
 #         "127.0.0.1",
 #         "localhost"
 #     ]
-
+BASE_URL = config("BASE_URL", default=None)
 ALLOWED_HOSTS = [
     ".railway.app"
 ]
@@ -93,6 +93,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # my apps
+    "customers",
     "commando",
     "profiles",
     "subscriptions",
