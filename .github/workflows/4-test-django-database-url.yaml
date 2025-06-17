@@ -35,4 +35,4 @@ jobs:
       - name: Django Tests
         working-directory: ./src
         run: |
-          python manage.py test
+          python manage.py test --keepdb
