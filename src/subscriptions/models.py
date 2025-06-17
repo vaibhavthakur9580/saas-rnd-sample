@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.conf import settings 
 from django.urls import reverse
 from django.utils import timezone
+from datetime import timedelta
 
 User = settings.AUTH_USER_MODEL # "auth.User"
 
@@ -275,12 +276,82 @@ class UserSubscription(models.Model):
             return None
         return int(self.current_period_end.timestamp())
 
-    def save(self, *args, **kwargs):
-        if (self.original_period_start is None and
-            self.current_period_start is not None
-            ):
+
+    # def save(self, *args, **kwargs):
+    #     if not self.current_period_start:
+    #         self.current_period_start = timezone.now()
+    #     if not self.current_period_end:
+    #         self.current_period_end = self.current_period_start + timedelta(days=30)
+    #     if not self.original_period_start and self.current_period_start:
+    #         self.original_period_start = self.current_period_start
+    #     super().save(*args, **kwargs)
+
+
+
+    def save(self, stripe_subscription_data=None, *args, **kwargs):
+    # If Stripe subscription data is provided, extract the period information
+        if stripe_subscription_data:
+            # Extract billing cycle anchor (subscription start date)
+            if 'billing_cycle_anchor' in stripe_subscription_data:
+                billing_cycle_anchor = stripe_subscription_data['billing_cycle_anchor']
+                if billing_cycle_anchor:
+                    self.current_period_start = timezone.datetime.fromtimestamp(
+                        billing_cycle_anchor, tz=timezone.utc
+                    )
+
+            # Extract period dates from subscription items
+            if 'items' in stripe_subscription_data and 'data' in stripe_subscription_data['items']:
+                items_data = stripe_subscription_data['items']['data']
+                if items_data:
+                    first_item = items_data[0]
+
+                    # Current period start
+                    if 'current_period_start' in first_item:
+                        period_start = first_item['current_period_start']
+                        if period_start:
+                            self.current_period_start = timezone.datetime.fromtimestamp(
+                                period_start, tz=timezone.utc
+                            )
+
+                    # Current period end
+                    if 'current_period_end' in first_item:
+                        period_end = first_item['current_period_end']
+                        if period_end:
+                            self.current_period_end = timezone.datetime.fromtimestamp(
+                                period_end, tz=timezone.utc
+                            )
+
+        # Fallback logic if no Stripe data or missing fields
+        if not self.current_period_start:
+            self.current_period_start = timezone.now()
+
+        if not self.current_period_end:
+            # For yearly subscription, add 1 year instead of 30 days
+            if (stripe_subscription_data and 
+                'items' in stripe_subscription_data and 
+                'data' in stripe_subscription_data['items'] and
+                stripe_subscription_data['items']['data']):
+
+                first_item = stripe_subscription_data['items']['data'][0]
+                if ('plan' in first_item and 
+                    first_item['plan'].get('interval') == 'year'):
+                    self.current_period_end = self.current_period_start + timedelta(days=365)
+                else:
+                    self.current_period_end = self.current_period_start + timedelta(days=30)
+            else:
+                self.current_period_end = self.current_period_start + timedelta(days=30)
+
+        # Set original period start if not already set
+        if not self.original_period_start and self.current_period_start:
             self.original_period_start = self.current_period_start
+
         super().save(*args, **kwargs)
+
+    
+
+    
+    
+    
 
 
 

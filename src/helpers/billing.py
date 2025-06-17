@@ -14,26 +14,44 @@ stripe.api_key = STRIPE_SECRET_KEY
 
 def serialize_subscription_data(subscription_response):
     """
-    Serialize subscription data with proper error handling for missing attributes
+    Serialize subscription data with proper error handling for missing attributes.
+    Fixed to properly extract period dates from subscription items.
     """
-    # Check if subscription_response has the required attributes
     if not hasattr(subscription_response, 'status'):
         raise ValueError("Invalid subscription object: missing status")
 
     status = subscription_response.status
 
-    # Handle missing period dates - these might not be available for incomplete subscriptions
     current_period_start = None
     current_period_end = None
 
-    if hasattr(subscription_response, 'current_period_start') and subscription_response.current_period_start:
+    # First, try to get from the top-level subscription object (for older Stripe API versions)
+    if hasattr(subscription_response, 'current_period_start') and subscription_response.current_period_start is not None:
         current_period_start = date_utils.timestamp_as_datetime(subscription_response.current_period_start)
 
-    if hasattr(subscription_response, 'current_period_end') and subscription_response.current_period_end:
+    if hasattr(subscription_response, 'current_period_end') and subscription_response.current_period_end is not None:
         current_period_end = date_utils.timestamp_as_datetime(subscription_response.current_period_end)
+
+    # Check within the first subscription item (this is where the data actually is in modern Stripe API)
+    if hasattr(subscription_response, 'items') and \
+       hasattr(subscription_response.items, 'data') and \
+       len(subscription_response.items.data) > 0:
+        
+        first_item = subscription_response.items.data[0]
+        
+        # Always check the items for period dates since that's where they are in the current API
+        if hasattr(first_item, 'current_period_start') and first_item.current_period_start is not None:
+            current_period_start = date_utils.timestamp_as_datetime(first_item.current_period_start)
+            
+        if hasattr(first_item, 'current_period_end') and first_item.current_period_end is not None:
+            current_period_end = date_utils.timestamp_as_datetime(first_item.current_period_end)
 
     # Handle cancel_at_period_end with default value
     cancel_at_period_end = getattr(subscription_response, 'cancel_at_period_end', False)
+
+    # Add some debugging to see what we're returning
+    # print(f"DEBUG: Serialized current_period_start: {current_period_start}")
+    # print(f"DEBUG: Serialized current_period_end: {current_period_end}")
 
     return {
         "current_period_start": current_period_start,
@@ -171,6 +189,10 @@ def get_checkout_customer_plan(session_id):
 
         # Retrieve subscription with error handling
         sub_r = get_subscription(sub_stripe_id, raw=True)
+        print(f"DEBUG: Raw Stripe Subscription Object: {sub_r}") # Add this line
+        print(f"DEBUG: sub_r.current_period_start: {getattr(sub_r, 'current_period_start', 'Not Found')}") # Add this line
+        print(f"DEBUG: sub_r.current_period_end: {getattr(sub_r, 'current_period_end', 'Not Found')}") # Add this line
+
 
         # Check subscription status
         if sub_r.status in ['incomplete', 'incomplete_expired']:

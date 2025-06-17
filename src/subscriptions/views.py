@@ -38,6 +38,9 @@ def user_subscription_cancel_view(request,):
             messages.success(request, "Your plan has been cancelled.")
         return redirect(user_sub_obj.get_absolute_url())
     return render(request, 'subscriptions/user_cancel_view.html', {"subscription": user_sub_obj})
+
+
+
 # Create your views here.
 def subscription_price_view(request, interval="month"):
     qs = SubscriptionPrice.objects.filter(featured=True)
